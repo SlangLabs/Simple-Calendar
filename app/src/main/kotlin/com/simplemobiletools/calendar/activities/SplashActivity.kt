@@ -2,10 +2,17 @@ package com.simplemobiletools.calendar.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import com.simplemobiletools.calendar.helpers.DAY_CODE
 import com.simplemobiletools.calendar.helpers.EVENT_ID
 import com.simplemobiletools.calendar.helpers.EVENT_OCCURRENCE_TS
+
+import com.slanglabs.slang.SlangClient
+import com.slanglabs.slang.SlangIntentMapper
+import com.slanglabs.slang.SlangIntentMapperBuilder
+
+import java.util.Map
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

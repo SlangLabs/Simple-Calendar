@@ -12,6 +12,7 @@ import android.os.Handler
 import android.provider.CalendarContract
 import android.support.v4.app.ActivityCompat
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AlertDialog
 import android.util.SparseIntArray
 import android.view.Menu
 import android.view.MenuItem
@@ -42,6 +43,9 @@ import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
 import com.simplemobiletools.commons.helpers.LICENSE_STETHO
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.models.Release
+import com.slanglabs.slang.SlangClient
+import com.slanglabs.slang.SlangIntentMapper
+import com.slanglabs.slang.SlangIntentMapperBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 import org.joda.time.DateTime
 import java.io.FileOutputStream
@@ -95,6 +99,28 @@ class MainActivity : SimpleActivity(), NavigationListener {
         }
 
         recheckCalDAVCalendars {}
+
+        // Slang Labs Intent Mapper
+        val intentMapper = SlangIntentMapperBuilder()
+                .handle(arrayOf("statement")) { intent, entities -> }
+                .build()
+
+        // Create a local Client object
+
+        val client = SlangClient(this)
+                //.setMode(SlangClient.SlangMode.LOCAL) // comment this for global client
+                .setIntentMapper(intentMapper)
+                .activate()
+
+        if (client.hasErrors()) {
+            val error = client.nextError.toString()
+            val builder = AlertDialog.Builder(this)
+
+            builder
+                    .setTitle("Slang Error")
+                    .setMessage(error)
+                    .show()
+        }
     }
 
     override fun onResume() {

@@ -58,6 +58,9 @@ dependencies {
 
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+
+    // Slang Labs
+    compile(name:'slangclient_lib', ext:'aar')
 }
 
 buildscript {
